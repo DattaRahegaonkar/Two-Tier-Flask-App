@@ -6,9 +6,9 @@ services:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: flaskdb
     volumes:
-      - mysql-data:/var/lib/docker/volumes/mysql-data
+      - mysql-data:/var/lib/mysql
     networks:
-      - twotier
+      - flask-app-network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-padmin"]
       interval: 10s
@@ -31,7 +31,7 @@ services:
       mysql:
         condition: service_healthy
     networks:
-      - twotier
+      - flask-app-network
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
@@ -44,6 +44,6 @@ volumes:
   mysql-data:
 
 networks:
-  twotier:
-    name: twotier
+  flask-app-network:
+    name: flask-app-network
     external: true
