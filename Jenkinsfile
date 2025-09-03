@@ -62,7 +62,7 @@ pipeline {
                 sh "docker-compose up -d"
             }
         }
-        // stage('Deploy to Kind Cluster') {
+        // stage('Deploy to Kind Cluster') {             // If you want to deploy on Kubernetes Cluster, uncomment this stage and comment the above "Deploying Using Docker Compose" stage.
         //     steps {
         //         sh 'kubectl apply -f k8s/namespace.yml'
         //         sh 'kubectl apply -f k8s/deployment.yml'
