@@ -99,6 +99,43 @@ Access the flask app on http://localhost:5000
 docker-compose down
 ```
 
+## 🔧 Jenkins CI/CD Pipeline (DevSecOps)
+
+This repository includes a Jenkins pipeline (Jenkinsfile) that automates the following steps:
+
+1. Clean Workspace :
+- Deletes old build artifacts to ensure a clean environment.
+
+2. Checkout Code :
+- Pulls the latest code from the GitHub repository.
+
+3. Dependency Check (OWASP / Trivy) :
+- Scans the project for security vulnerabilities in dependencies.
+
+4. SonarQube Analysis :
+- Performs code quality and security analysis using SonarQube.
+
+5. Build Docker Image :
+- Creates a Docker image for the application.
+
+6. Push to Docker Registry :
+- Pushes the image to Docker Hub (or any configured registry).
+
+7. Deploy to Kubernetes (Kind Cluster) :
+- Applies Kubernetes manifests (Deployment, Service, Ingress) to deploy the app in a local Kind cluster.
+
+8. Email Notifications (emailext) :
+- Sends automated email alerts on pipeline status (success, failure, or unstable).
+- Helps the team stay informed without manually checking Jenkins.
+
+
+✅ Jenkins Notes
+
+   - Jenkins triggers can be automated via GitHub webhooks on push events.
+
+   - Using ngrok can expose local Jenkins to GitHub for webhook testing.
+
+   - The pipeline ensures security, quality, deployment, and notifications are automated in a single workflow.
 
 ## Notes
 
@@ -109,3 +146,4 @@ docker-compose down
 - If you encounter issues, check Docker logs and error messages for troubleshooting.
 
 
+![hello](https://github.com/DattaRahegaonkar/Two-Tier-Flask-App/blob/80819490ea99e8a54ad1b0a615c17420d9250a62/Jenkins%20CI-CD%20Pipeline%20.png)
