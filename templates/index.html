@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask App 🚀</title>
     <style>
-        /* Import Google Font */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-        /* Reset Default Styles */
         * {
             margin: 0;
             padding: 0;
@@ -17,9 +15,8 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Background with subtle gradient */
         body {
-            background: linear-gradient(to bottom, #0f0f0f, #1c1c1c);
+            background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
             color: #fff;
             display: flex;
             justify-content: center;
@@ -28,83 +25,72 @@
             padding: 20px;
         }
 
-        /* Glassmorphic Container */
+        /* Container with smooth hover */
         .container {
             max-width: 600px;
             width: 100%;
             padding: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0, 255, 128, 0.15);
+            border: 1px solid rgba(0, 255, 128, 0.25);
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.9s ease-out;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
 
         .container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(0, 255, 128, 0.25);
         }
 
-        /* Elegant Heading */
         h1 {
             font-size: 2rem;
             font-weight: 600;
-            background: linear-gradient(135deg, #ff9800, #e65100);
+            background: linear-gradient(135deg, #00e676, #1de9b6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
         }
 
-        /* Messages Box */
+        /* Messages box with hidden scrollbar */
         .messages {
             margin-bottom: 20px;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            background: rgba(0, 255, 128, 0.08);
+            border-radius: 12px;
             max-height: 200px;
             overflow-y: auto;
-
-            /* For Firefox */
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255, 152, 0, 0.6) transparent;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE 10+ */
         }
 
-        /* Chrome, Edge, Safari */
         .messages::-webkit-scrollbar {
-            width: 6px;
+            display: none; /* Chrome, Safari, Edge */
         }
 
-        .messages::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .messages::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 152, 0, 0);
-            border-radius: 3px;
-            transition: background-color 0.3s ease;
-        }
-
-        /* Show scrollbar on hover */
-        .messages:hover::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 152, 0, 0.6);
-        }
-
-        /* Messages inside */
         .messages p {
             padding: 10px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 255, 128, 0.12);
+            border-left: 3px solid #00e676;
             border-radius: 8px;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             font-size: 0.95rem;
+            text-align: left;
+            animation: slideUp 0.4s ease;
         }
 
-        /* Animated Input Fields */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* space between input & button */
+        }
+
         input[type="text"] {
             width: 100%;
             padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(0, 255, 128, 0.3);
             background: rgba(255, 255, 255, 0.05);
             color: #fff;
             border-radius: 8px;
@@ -114,30 +100,29 @@
         }
 
         input[type="text"]:focus {
-            border-color: #ff9800;
-            box-shadow: 0 0 12px rgba(255, 152, 0, 0.5);
+            border-color: #00e676;
+            box-shadow: 0 0 14px rgba(0, 255, 128, 0.6);
             outline: none;
         }
 
-        /* Glowing Submit Button */
         input[type="submit"] {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #ff9800, #e65100);
+            background: linear-gradient(135deg, #00e676, #1de9b6);
             color: #fff;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
 
         input[type="submit"]:hover {
-            box-shadow: 0 0 20px rgba(255, 152, 0, 0.6);
-            transform: translateY(-2px);
+            box-shadow: 0 0 22px rgba(0, 255, 128, 0.7);
+            transform: translateY(-2px) scale(1.02);
         }
 
-        /* Mobile Responsive */
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -152,12 +137,37 @@
                 font-size: 14px;
             }
         }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Flask + MySQL App [2 tier]</h1>
+        <h1>Flask + MySQL [ 2 Tier App ]</h1>
 
         <div class="messages">
             {% for message in messages %}
@@ -171,12 +181,11 @@
         </form>
     </div>
 
-    <!-- jQuery for Smooth AJAX Requests -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
             $("#messageForm").on("submit", function (event) {
-                event.preventDefault(); // Prevent page reload
+                event.preventDefault();
 
                 let messageInput = $("input[name='new_message']");
                 let message = messageInput.val().trim();
@@ -194,7 +203,7 @@
                         if (response && response.message) {
                             $(".messages").append("<p>" + response.message + "</p>");
                             messageInput.val("");
-                            $(".messages").scrollTop($(".messages")[0].scrollHeight); // Scroll to bottom
+                            $(".messages").scrollTop($(".messages")[0].scrollHeight);
                         } else {
                             console.error("Unexpected response format:", response);
                         }
