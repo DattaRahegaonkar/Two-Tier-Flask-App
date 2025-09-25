@@ -57,12 +57,21 @@ pipeline {
         }
         stage("Deploying Using Docker Compose") {
             steps {
-                sh 'docker network inspect flask-app-network >/dev/null 2>&1 || docker network create flask-app-network'
                 sh "docker rm -f flaskapp || true"
-                sh "docker-compose up -d"
+                sh '''
+                export MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+                export MYSQL_DATABASE=${MYSQL_DATABASE}
+                
+                export MYSQL_HOST=${MYSQL_HOST}
+                export MYSQL_USER=${MYSQL_USER}
+                export MYSQL_PASSWORD=${MYSQL_PASSWORD}
+                export MYSQL_DB=${MYSQL_DB}
+                
+                docker-compose up -d
+                '''
             }
         }
-        // stage('Deploy to Kind Cluster') {             // If you want to deploy on Kubernetes Cluster, uncomment this stage and comment the above "Deploying Using Docker Compose" stage.
+        // stage('Deploy to Kind Cluster') {
         //     steps {
         //         sh 'kubectl apply -f k8s/namespace.yml'
         //         sh 'kubectl apply -f k8s/deployment.yml'
